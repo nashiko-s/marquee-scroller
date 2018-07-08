@@ -75,6 +75,21 @@ Use the Arduino guide for details on how to installing and manage libraries http
 <Max72xxPanel.h> --> https://github.com/markruys/arduino-Max72xxPanel  
 <JsonStreamingParser.h> --> https://github.com/squix78/json-streaming-parser  
 
+**日本語の設定**  
+ニュースだけ日本語になります。  
+半角は全角に変換されます。  
+縦表示には対応していません。 
+1. 言語変換ファイルをアップロードする必要があるので https://github.com/esp8266/arduino-esp8266fs-plugin の「Installation」を参考にインストール。
+3. Arduino IDEからdataフォルダのファイルをアップロード。
+4. Settings.hを以下のように変更。  
+NEWS_SOURCE = "jp"
+
+![Marquee Lang Ja](/images/marquee_lang_ja.gif)  
+
+Thanks:  
+https://github.com/mgo-tec/UTF8_to_Shift_JIS  
+http://hatenaclang.blogspot.com/2011/03/blog-post_3072.html
+
 ## Initial Configuration
 Starting with version 2.0 editing the **Settings.h** file is optional.  All API Keys are now managed in the Web Interface except for the GeoNames Key. It is not required to edit the Settings.h file before loading and running the code.  
 * Open Weather Map API Key: http://openweathermap.org/
@@ -110,7 +125,7 @@ David Payne
 Nathan Glaus  
 Daniel Eichhorn -- Author of the TimeClient class  
 yanvigdev  
-nashiko-s  
+nashiko  
 
 ![Marquee Scroller](/images/5d7f02ccbf01125cabbf246f97f2ead1_preview_featured.jpg)  
 ![Marquee Parts](/images/1ffa0c835554d280258c13be5513c4fe_preview_featured.jpg)

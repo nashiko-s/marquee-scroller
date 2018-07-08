@@ -52,6 +52,7 @@ SOFTWARE.
 #include "OctoPrintClient.h"
 #include "AdviceSlipClient.h"
 #include "BitcoinApiClient.h"
+#include "MarqueeLangJa.h"
 
 //******************************
 // Start Settings

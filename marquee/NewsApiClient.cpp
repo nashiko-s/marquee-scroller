@@ -41,8 +41,9 @@ void NewsApiClient::updateNews() {
   JsonStreamingParser parser;
   parser.setListener(this);
   HTTPClient http;
-
-  String apiGetData = "http://" + String(servername) + "/v2/top-headlines?sources=" + mySource + "&apiKey=" + myApiKey;
+  String type = "sources";
+  if (mySource == "jp") type = "country";
+  String apiGetData = "http://" + String(servername) + "/v2/top-headlines?" + type + "=" + mySource + "&apiKey=" + myApiKey;
 
   Serial.println("Getting News Data");
   Serial.println(apiGetData);

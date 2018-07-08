@@ -27,7 +27,7 @@ SOFTWARE.
 
 #include "Settings.h"
 
-#define VERSION "2.1"
+#define VERSION "2.1_lang_ja_0.1"
 
 #define HOSTNAME "CLOCK-" 
 #define CONFIG "/conf.txt"
@@ -87,6 +87,9 @@ BitcoinApiClient bitcoinClient;
 
 ESP8266WebServer server(WEBSERVER_PORT);
 
+MarqueeLangJa mqLangJa(&server, &matrix, &displayScrollSpeed);
+
+
 String WEB_ACTIONS =  "<a class='w3-bar-item w3-button' href='/'><i class='fa fa-home'></i> Home</a>"
                       "<a class='w3-bar-item w3-button' href='/configure'><i class='fa fa-cog'></i> Configure</a>"
                       "<a class='w3-bar-item w3-button' href='/pull'><i class='fa fa-cloud-download'></i> Refresh Data</a>"
@@ -130,7 +133,8 @@ String CHANGE_FORM3 = "<hr><input name='displayoctoprint' class='w3-check w3-mar
                       "<button class='w3-button w3-block w3-green w3-section w3-padding' type='submit'>Save</button></form>"
                       "<script>function isNumberKey(e){var h=e.which?e.which:event.keyCode;return!(h>31&&(h<48||h>57))}</script>";
 
-String NEWS_OPTIONS = "<option>bbc-news</option>"
+String NEWS_OPTIONS = "<option disabled>----- SOURCES -----</option>"
+                      "<option>bbc-news</option>"
                       "<option>cnn</option>"
                       "<option>crypto-coins-news</option>"
                       "<option>engadget</option>"
@@ -149,7 +153,10 @@ String NEWS_OPTIONS = "<option>bbc-news</option>"
                       "<option>the-new-york-times</option>"
                       "<option>time</option>"
                       "<option>usa-today</option>"
-                      "<option>wired</option>";
+                      "<option>wired</option>"
+                      "<option disabled>----- COUNTRY -----</option>"
+                      "<option>jp</option>"
+                      ;
                             
 String CURRENCY_OPTIONS = "<option value='NONE'>NONE</option>"
                           "<option value='USD'>United States Dollar</option>"
@@ -288,6 +295,10 @@ void setup() {
     scrollMessage("Web Interface is Disabled");
   }
    
+  mqLangJa.refresh = refresh;
+  mqLangJa.ENABLE_OTA = ENABLE_OTA;
+  mqLangJa.WEBSERVER_ENABLED = WEBSERVER_ENABLED;
+   
   flashLED(1, 500);
 }
 
@@ -333,27 +344,39 @@ void loop() {
       msg += "Humidity:" + weatherClient.getHumidityRounded(0) + "%   ";
       msg += "Wind:" + weatherClient.getWindRounded(0) + getSpeedSymbol() + "  ";
       msg += marqueeMessage + " ";
+      scrollMessage(msg);
 
+      String msg2;
       if (NEWS_ENABLED) {
-        msg += "  " + NEWS_SOURCE + ": " + newsClient.getTitle(newsIndex) + "   ";
+        if (NEWS_SOURCE == "jp"){
+            msg2 = newsClient.getTitle(newsIndex);
+            mqLangJa.scrollMessage(msg2);
+        } else {
+            msg2 = "  " + NEWS_SOURCE + ": " + newsClient.getTitle(newsIndex) + "   ";
+            scrollMessage(msg2);
+        }
+        
         newsIndex += 1;
         if (newsIndex > 9) {
           newsIndex = 0;
         }
       }
+
+      String msg3;
       if (ADVICE_ENABLED) {
-        msg += "  Advice: " + adviceClient.getAdvice() + " ";
+        msg3 += "  Advice: " + adviceClient.getAdvice() + " ";
       }
       if (OCTOPRINT_ENABLED && printerClient.isPrinting()) {
-        msg += "   " + printerClient.getFileName() + " ";
-        msg += "(" + printerClient.getProgressCompletion() + "%)   ";
+        msg3 += "   " + printerClient.getFileName() + " ";
+        msg3 += "(" + printerClient.getProgressCompletion() + "%)   ";
       }
       if (BitcoinCurrencyCode != "NONE" && BitcoinCurrencyCode != "") {
-        msg += "    Bitcoin: " + bitcoinClient.getRate() + " " + bitcoinClient.getCode() + " ";
+        msg3 += "    Bitcoin: " + bitcoinClient.getRate() + " " + bitcoinClient.getCode() + " ";
       }
     
-      scrollMessage(msg);
+      scrollMessage(msg3);
     }
+
   }
 
   String hourMinutes = timeClient.getAmPmHours() + ":" + timeClient.getMinutes();
