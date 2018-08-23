@@ -36,11 +36,14 @@ SOFTWARE.
 * Configurable scroll speed
 * Configurable scrolling frequency
 * Configurable number of LED panels
+* Options of different types of Clock Displays (display seconds or temperature) -- only on 8 or more display panels
 * Video: https://youtu.be/DsThufRpoiQ
 
 ## Required Parts:
 * Wemos D1 Mini: https://amzn.to/2qLyKJd
-* Dot Matrix Module: https://amzn.to/2HtnQlD
+* Dot Matrix Module: https://amzn.to/2HtnQlD  
+
+Note: Using the links provided here help to support these types of projects. Thank you for the support.  
 
 ## Wiring for the Wemos D1 Mini to the Dot Matrix Display
 CLK -> D5 (SCK)  
@@ -52,7 +55,7 @@ GND -> GND-
 ![Marquee Scroller Wiring](/images/marquee_scroller_pins.png)  
 
 ## 3D Printed Case by David Payne:  
-Original Single Panel version: https://www.myminifactory.com/object/3d-print-65739  
+Original Single Panel version: https://www.thingiverse.com/thing:2867294  
 Double Wide LED version: https://www.thingiverse.com/thing:2989552  
 
 ## Compiling and Loading to Wemos D1
@@ -96,7 +99,7 @@ Starting with version 2.0 editing the **Settings.h** file is optional.  All API 
 * News API Key: https://newsapi.org/
 * GeoNames Key (optional as you can use mine or create your own) http://www.geonames.org/ -- this key is only managed in the Settings.h file.
 * Your OctoPrint API Key (optional if you use the OctoPrint status)
-* Version 2.0 supports Chained 4x1 LED displayes -- configure in the Settigns.h file  
+* Version 2.0 supports Chained 4x1 LED displayes -- configure in the Settigns.h file.  
 
 NOTE: The settings in the Settings.h are the default settings for the first loading. After loading you will manage changes to the settings via the Web Interface. If you want to change settings again in the settings.h, you will need to erase the file system on the Wemos or use the “Reset Settings” option in the Web Interface.  
 
