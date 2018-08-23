@@ -114,7 +114,7 @@ void NewsApiClient::key(String key) {
 }
 
 void NewsApiClient::value(String value) {
-  if (counterTitle == 10) {
+  if (counterTitle == 7) {
     // we are full so return
     return;
   }

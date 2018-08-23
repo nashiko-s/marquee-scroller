@@ -42,7 +42,7 @@ class NewsApiClient: public JsonListener {
       String url;
     } newsfeed;
 
-    newsfeed news[10];
+    newsfeed news[7];
     
     const char* servername = "newsapi.org";  // remote server we will connect to
   
